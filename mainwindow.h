@@ -18,17 +18,22 @@ public:
     ~MainWindow();
 
 
-    void changewin();
+
+    void changewin1();
+
+    void changewin2();
+
     void dealSub();
+
 protected:
     //重写绘图事件
     void paintEvent(QPaintEvent *);
 private:
     Ui::MainWindow *ui;
-    QPushButton b1;
-    QPushButton *b2;
 
+    //声明子窗口对象
     subMainWindow w;
+
 };
 
 #endif // MAINWINDOW_H

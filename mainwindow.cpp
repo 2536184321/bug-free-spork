@@ -2,6 +2,10 @@
 #include "ui_mainwindow.h"
 #include <QPushButton>
 #include <QPainter>
+#include <QMessageBox>
+#include <gamemodel.h>
+#include <QDebug>
+
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -9,42 +13,47 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
+
+    connect(ui->PLAYER, &QPushButton::clicked, this, &MainWindow::changewin1);
+
+    connect(ui->AI, &QPushButton::clicked, this, &MainWindow::changewin2);
+
     setWindowTitle("开始界面");
-    b1.setParent(this);
-    b1.setText("下一步");
-    b1.move(100, 100);
-
-    b2 = new QPushButton(this);
-    b2->setText("close");
-
-    //显示子窗口
-
-    connect(&b1, &QPushButton:: released, this, &MainWindow::changewin);
-
-    //自定义槽，普通函数的用法
-    connect(b2, &QPushButton::released, this, &MainWindow::close);
 
     //处理子窗口信号
     connect(&w, &subMainWindow::mySignal, this, &MainWindow::dealSub);
 
-    resize(1000, 900);
-
 }
 
 
-void MainWindow::changewin()
+void MainWindow::changewin1()
 {
     //子窗口显示
     w.show();
+    w.initPERSONGame();
     //主窗口隐藏
     this->hide();
 }
+
+void MainWindow::changewin2()
+{
+    //子窗口显示
+    w.show();
+    w.initAIGame();
+    //主窗口隐藏
+    this->hide();
+}
+
 void MainWindow::dealSub()
 {
     //子窗口隐藏
     w.hide();
     //主窗口显示
     this->show();
+
+    connect(ui->PLAYER, &QPushButton::clicked, this, &MainWindow::changewin1);
+
+    connect(ui->AI, &QPushButton::clicked, this, &MainWindow::changewin2);
 }
 MainWindow::~MainWindow()
 {
@@ -52,6 +61,5 @@ MainWindow::~MainWindow()
 }
 void MainWindow::paintEvent(QPaintEvent *)
 {
-    QPainter p(this);
-    p.drawPixmap(rect(), QPixmap("D:\QTproject\day01\07\Image\\001.jpg"));
+
 }
