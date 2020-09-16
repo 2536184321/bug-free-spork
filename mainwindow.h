@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QPaintEvent>
+#include "towerposition.h"
 
 #include "waypoint.h"
 
@@ -19,12 +20,16 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
+    void loadTowerPosition1();
+
 
     void addWayPoint1();//用来添加航点的函数
 
 private:
+
     Ui::MainWindow *ui;
     QList<wayPoint * > m_wayPointList;//用来储存航点的list
+    QList<TowerPosition> m_towerPositionList;
 
 protected:
     void paintEvent(QPaintEvent*);
