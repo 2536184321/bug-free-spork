@@ -29,7 +29,8 @@ void MainWindow::paintEvent(QPaintEvent*)
            waypoint->draw(&painter);
     foreach(const TowerPosition towerposition,m_towerPositionList)
            towerposition.draw(&painter);
-
+    foreach(const Tower * tower, m_towerList)
+            tower->draw(&painter);
 }
 
 void MainWindow::addWayPoint1()
@@ -82,5 +83,26 @@ void MainWindow::loadTowerPosition1()
     for(int i=0;i<len;i++)
     {
 //        m_towerPositionList.push_back(pos[i]);
+    }
+}
+
+void MainWindow::mousePressEvent(QMouseEvent * event)
+{
+    QPoint pressPos=event->pos();//得到鼠标点击的位置
+    auto it=m_towerPositionList.begin();
+    while(it!=m_towerPositionList.end())//遍历所有的防御塔坑
+    {
+        if(Qt::LeftButton==event->button())//如果是鼠标左键点击
+        {
+            if(it->ContainPos(pressPos) && !it->hasTower())//如果鼠标点击的位置在防御塔坑的范围内,并且没有防御塔
+            {
+                Tower * tower=new Tower(it->getCenterPos(),this);//创建一个新的防御塔
+                m_towerList.push_back(tower);//把这个防御塔放到储存防御塔的list中
+                it->setHasTower(true);//设置这个防御塔坑内有防御塔了
+                update();//更新地图
+                break;//进行了一次操作，可以直接退出循环了
+            }
+        }
+        ++it;
     }
 }

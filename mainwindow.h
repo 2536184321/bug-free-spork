@@ -4,8 +4,10 @@
 #include <QMainWindow>
 #include <QPaintEvent>
 #include "towerposition.h"
-
+#include "tower.h"
 #include "waypoint.h"
+
+class Tower;
 
 namespace Ui {
 class MainWindow;
@@ -30,8 +32,10 @@ private:
     Ui::MainWindow *ui;
     QList<wayPoint * > m_wayPointList;//用来储存航点的list
     QList<TowerPosition> m_towerPositionList;
+    QList<Tower *> m_towerList;
 
 protected:
+    void mousePressEvent(QMouseEvent *); // 鼠标点击函数
     void paintEvent(QPaintEvent*);
 };
 

@@ -27,12 +27,14 @@ SOURCES += \
         main.cpp \
         mainwindow.cpp \
     waypoint.cpp \
-    towerposition.cpp
+    towerposition.cpp \
+    tower.cpp
 
 HEADERS += \
         mainwindow.h \
     waypoint.h \
-    towerposition.h
+    towerposition.h \
+    tower.h
 
 FORMS += \
         mainwindow.ui
